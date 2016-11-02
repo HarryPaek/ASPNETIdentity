@@ -10,9 +10,9 @@
         User Accounts
     </div>
     <table class="table table-striped">
-        <tr><th>ID</th><th>Name</th><th>Email</th><th></th><th></th></tr>
+        <tr><th>ID</th><th>Name</th><th>Email</th><th></th></tr>
         @if (Model.Count() == 0) { 
-            <tr><td colspan="5" class="text-center">Mo User Accounts</td></tr>
+            <tr><td colspan="4" class="text-center">Mo User Accounts</td></tr>
         }
         else {
             foreach (AppUser user in Model) {

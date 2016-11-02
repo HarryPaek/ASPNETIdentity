@@ -8,13 +8,31 @@ namespace Users.Controllers
 {
     public class HomeController : Controller
     {
-        // GET: Home
+
+        [Authorize]
         public ActionResult Index()
         {
-            Dictionary<string, object> data = new Dictionary<string, object>();
-            data.Add("Placeholder", "Placeholder");
+            return View(GetData("Index"));
+        }
 
-            return View(data);
+        [Authorize(Roles="Users")]
+        [Authorize(Roles = "Administrators")]
+        public ActionResult OtherAction()
+        {
+            return View(GetData("OtherAction"));
+        }
+
+        private Dictionary<string, object> GetData(string actionName)
+        {
+            Dictionary<string, object> dictionary = new Dictionary<string, object>();
+
+            dictionary.Add("Action", actionName);
+            dictionary.Add("User", HttpContext.User.Identity.Name);
+            dictionary.Add("Authenticated", HttpContext.User.Identity.IsAuthenticated);
+            dictionary.Add("Authentication Type", HttpContext.User.Identity.AuthenticationType);
+            dictionary.Add("In Users Role", HttpContext.User.IsInRole("Users"));
+
+            return dictionary;
         }
     }
 }
