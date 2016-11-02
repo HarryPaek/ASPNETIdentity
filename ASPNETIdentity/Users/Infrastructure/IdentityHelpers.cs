@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 
 namespace Users.Infrastructure
@@ -14,6 +15,13 @@ namespace Users.Infrastructure
             AppUserManager manager = HttpContext.Current.GetOwinContext().GetUserManager<AppUserManager>();
 
             return new MvcHtmlString(manager.FindByIdAsync(id).Result.UserName);
+        }
+
+        public static string GetRoleName(this IdentityUserRole userRole)
+        {
+            AppRoleManager manager = HttpContext.Current.GetOwinContext().GetUserManager<AppRoleManager>();
+
+            return manager.FindByIdAsync(userRole.RoleId).Result.Name;
         }
     }
 }
