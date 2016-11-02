@@ -1,4 +1,5 @@
-﻿@model Users.Models.AppUser
+﻿@using Users.Models
+@model AppUser
 
 @{
     ViewBag.Title = "Edit";
@@ -15,6 +16,10 @@
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(x => x.Id)
+    <div class="form-group">
+        <label>City</label>
+        @Html.DropDownListFor(model => model.City, new SelectList(Enum.GetNames(typeof(Cities))), new { @class = "form-control" })
+    </div>
     <div class="form-group">
         <label>Email</label>
         @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })

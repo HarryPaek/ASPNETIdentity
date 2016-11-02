@@ -26,7 +26,8 @@ namespace Users.Controllers
         public async Task<ActionResult> Create(CreateUserViewModel model)
         {
             if (ModelState.IsValid) {
-                AppUser user = new AppUser { UserName = model.Name, Email = model.Email };
+                AppUser user = new AppUser { UserName = model.Name, Email = model.Email, City = model.City };
+                user.SetCountryFromCity(model.City);
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
@@ -49,12 +50,14 @@ namespace Users.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Edit(string id, string email, string password)
+        public async Task<ActionResult> Edit(string id, string email, Cities city, string password)
         {
             AppUser user = await UserManager.FindByIdAsync(id);
 
             if (user != null)
             {
+                user.City = city;
+                user.SetCountryFromCity(city);
                 user.Email = email;
                 IdentityResult validEmail = await UserManager.UserValidator.ValidateAsync(user);
 

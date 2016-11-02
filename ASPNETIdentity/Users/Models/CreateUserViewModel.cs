@@ -12,6 +12,9 @@ namespace Users.Models
         public string Name { get; set; }
 
         [Required]
+        public Cities City { get; set; }
+
+        [Required]
         public string Email { get; set; }
 
         [Required]

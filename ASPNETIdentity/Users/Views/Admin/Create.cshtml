@@ -1,4 +1,5 @@
-﻿@model Users.Models.CreateUserViewModel
+﻿@using Users.Models
+@model CreateUserViewModel
 
 @{
     ViewBag.Title = "Create";
@@ -14,6 +15,11 @@
         @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
     </div>
 
+    <div class="form-group">
+        <label>City</label>
+        @Html.DropDownListFor(model => model.City, new SelectList(Enum.GetNames(typeof(Cities))), "Select City...",  new { @class = "form-control" })
+    </div>
+    
     <div class="form-group">
         <lable>Email</lable>
         @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
