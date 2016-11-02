@@ -17,6 +17,11 @@ namespace Users.Infrastructure
             return new MvcHtmlString(manager.FindByIdAsync(id).Result.UserName);
         }
 
+        public static MvcHtmlString GetRoleName(this HtmlHelper html, IdentityUserRole userRole)
+        {
+            return new MvcHtmlString(userRole.GetRoleName());
+        }
+
         public static string GetRoleName(this IdentityUserRole userRole)
         {
             AppRoleManager manager = HttpContext.Current.GetOwinContext().GetUserManager<AppRoleManager>();

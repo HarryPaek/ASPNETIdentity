@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Users.Infrastructure;
+using Users.Models;
 
 namespace Users.Controllers
 {
@@ -40,9 +41,33 @@ namespace Users.Controllers
             return dictionary;
         }
 
+        [Authorize]
+        public ActionResult UserProps()
+        {
+            return View(CurrentUser);
+        }
+
+
+        [Authorize]
+        [HttpPost]
+        public async Task<ActionResult> UserProps(Cities city)
+        {
+            AppUser user = CurrentUser;
+            user.City = city;
+            await UserManager.UpdateAsync(user);
+
+            return View(user);
+        }
+
+
         private AppUserManager UserManager
         {
             get { return HttpContext.GetOwinContext().GetUserManager<AppUserManager>(); }
+        }
+
+        private AppUser CurrentUser
+        {
+            get { return UserManager.FindByName(HttpContext.User.Identity.Name); }
         }
     }
 }
