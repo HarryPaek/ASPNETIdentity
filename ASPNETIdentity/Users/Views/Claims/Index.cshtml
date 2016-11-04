@@ -10,11 +10,12 @@
     <div class="panel-heading">Claims</div>
     <table class="table table-striped">
         <tr><th>Subject</th><th>Issuer</th><th>Type</th><th>Value</th></tr>
-        @foreach (Claim claim in Model.OrderBy(x => x.Type)) {
+        @foreach (Claim claim in Model.OrderBy(x => x.Issuer).ThenBy(x => x.GetClaimTypeName()))
+        {
             <tr>
                 <td>@claim.Subject.Name</td>
                 <td>@claim.Issuer</td>
-                <td>@Html.GetClaimType(claim.Type)</td>
+                <td>@Html.GetClaimTypeName(claim)</td>
                 <td>@claim.Value</td>
             </tr>
         }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace Users
@@ -12,6 +8,18 @@ namespace Users
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+
+            routes.MapRoute(
+                name: "Naver API Sign-in",
+                url: "signin-naver",
+                defaults: new { controller = "Account", action = "ExternalLoginCallbackRedirect" }
+            );
+
+            routes.MapRoute(
+                name: "Google API Sign-in",
+                url: "signin-google",
+                defaults: new { controller = "Account", action = "ExternalLoginCallbackRedirect" }
+            );
 
             routes.MapRoute(
                 name: "Default",

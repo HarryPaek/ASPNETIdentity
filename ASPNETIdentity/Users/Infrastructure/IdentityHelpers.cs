@@ -19,16 +19,23 @@ namespace Users.Infrastructure
             return new MvcHtmlString(manager.FindByIdAsync(id).Result.UserName);
         }
 
-        public static MvcHtmlString GetClaimType(this HtmlHelper html, string claimType)
+        public static string GetClaimTypeName(this Claim claim)
         {
             FieldInfo[] fields = typeof(ClaimTypes).GetFields();
 
-            foreach (FieldInfo field in fields) {
-                if(field.GetValue(null).ToString() == claimType)
-                    return new MvcHtmlString(field.Name);
+            foreach (FieldInfo field in fields)
+            {
+                if (field.GetValue(null).ToString() == claim.Type)
+                    return field.Name;
             }
 
-            return new MvcHtmlString(string.Format("{0}", claimType.Split('/', '.').Last()));
+            return claim.Type.Split('/', '.').Last();
+        }
+
+
+        public static MvcHtmlString GetClaimTypeName(this HtmlHelper html, Claim claim)
+        {
+            return new MvcHtmlString(claim.GetClaimTypeName());
         }
 
         public static MvcHtmlString GetRoleName(this HtmlHelper html, IdentityUserRole userRole)

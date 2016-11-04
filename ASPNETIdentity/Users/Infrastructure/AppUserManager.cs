@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
@@ -31,11 +27,17 @@ namespace Users.Infrastructure
                 RequireUppercase = true
             };
 
-            manager.UserValidator = new CustomUserValidator(manager)
+            manager.UserValidator = new UserValidator<AppUser>(manager)
             {
-                AllowOnlyAlphanumericUserNames = true,
+                AllowOnlyAlphanumericUserNames = false,
                 RequireUniqueEmail = true
             };
+
+            //manager.UserValidator = new CustomUserValidator(manager)
+            //{
+            //    AllowOnlyAlphanumericUserNames = true,
+            //    RequireUniqueEmail = true
+            //};
 
             return manager;
         }

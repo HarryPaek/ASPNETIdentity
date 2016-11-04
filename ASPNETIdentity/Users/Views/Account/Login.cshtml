@@ -21,3 +21,18 @@
     </div>
     <button class="btn btn-primary" type="submit">Log In</button>
 }
+
+<hr />
+@using (Html.BeginForm("GoogleLogin", "Account")) {
+    @Html.AntiForgeryToken();
+    <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
+    <button class="btn btn-primary" type="submit">Log In via Google</button>
+}
+
+<hr />
+@using (Html.BeginForm("NaverLogin", "Account"))
+{
+    @Html.AntiForgeryToken();
+    <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
+    <button class="btn btn-primary" type="submit">Log In via Naver</button>
+}
